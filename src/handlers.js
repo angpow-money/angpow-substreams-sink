@@ -30,7 +30,7 @@ const handleBlockScopedDataMessage = async (response, registry) => {
 
       const p = {
         tx_hash: '0x' + o.evtTxHash,
-        log_index: o.evtIndex,
+        log_index: o.evtIndex || 0,
         block_time: o.evtBlockTime,
         block_number: o.evtBlockNumber,
         donator: b64ToHex(o.donator),

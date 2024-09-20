@@ -1,0 +1,18 @@
+# fly.toml app configuration file generated for angpow-substreams-sink on 2024-09-21T05:22:25+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'angpow-substreams-sink'
+primary_region = 'sin'
+
+[build]
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[mounts]
+  source = "data"
+  destination = "/data"
