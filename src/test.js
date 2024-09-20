@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import supabase from "./supabase.js"
+import redis from './redis.js'
 
 const o = {
   evtTxHash: 'cdfaab7121eb2b4a1ff0abcdbe4986c45fe0c18f10b37c64d2d04d8b43cb9ce7',
@@ -20,7 +21,7 @@ function b64ToHex(s) {
 }
 
 
-async function main() {
+async function insert() {
   const p = {
     tx_hash: '0x' + o.evtTxHash,
     log_index: o.evtIndex,
@@ -38,4 +39,11 @@ async function main() {
     .then(console.log)
 }
 
+async function main() {
+  //await redis.set('cursor', 'something').then(console.log)
+  const cursor = await redis.get('cursor')
+  console.log(cursor)
+  //await redis.del('cursor').then(console.log)
+
+}
 main()

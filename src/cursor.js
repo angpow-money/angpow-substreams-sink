@@ -1,20 +1,26 @@
-import fs from "fs";
+//import fs from "fs";
 
-const CURSOR_FILE = "./cursor"
+import redis from "./redis.js"
+
+//const CURSOR_FILE = "./cursor"
 
 export const getCursor = async () => {
-    try {
-        return await fs.promises.readFile(CURSOR_FILE)
-    } catch(e) {
-        return undefined
-    }
+  try {
+    const cursor = await redis.get('cursor')
+    return cursor
+    //return await fs.promises.readFile(CURSOR_FILE)
+  } catch (e) {
+    return undefined
+  }
 }
 
 // In this example, the cursor is persisted in a file.
 export const writeCursor = async cursor => {
-    try {
-        await fs.promises.writeFile(CURSOR_FILE, cursor)
-    } catch (e) {
-        throw new Error("COULD_NOT_COMMIT_CURSOR")
-    }
+  try {
+    //await fs.promises.writeFile(CURSOR_FILE, cursor)
+    await redis.set('cursor', cursor).then(console.log)
+  } catch (e) {
+    console.error(e)
+    throw new Error("COULD_NOT_COMMIT_CURSOR")
+  }
 }

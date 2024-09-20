@@ -20,7 +20,8 @@ const ENDPOINT = "https://arbsepolia.substreams.pinax.network:443"
 const SPKG = "./angpao.spkg"
 const MODULE = "map_events"
 const START_BLOCK = '82563569'
-const STOP_BLOCK = '+1'
+//const STOP_BLOCK = '+1'
+const STOP_BLOCK = undefined
 
 /*
     Entrypoint of the application.
