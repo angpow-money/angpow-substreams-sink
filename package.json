@@ -4,6 +4,10 @@
   "main": "src/index.js",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "deploy": "fly deploy --ha=false",
+    "deploy.reset": "fly deploy --ha=false -e RESET_CURSOR=true"
+  },
   "dependencies": {
     "@connectrpc/connect": "1.3.0",
     "@connectrpc/connect-node": "1.3.0",

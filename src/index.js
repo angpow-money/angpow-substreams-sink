@@ -7,7 +7,7 @@ import {
   fetchSubstream
 } from '@substreams/core';
 import { createConnectTransport } from "@connectrpc/connect-node";
-import { getCursor } from "./cursor.js";
+import { getCursor, removeCursor } from "./cursor.js";
 import { isErrorRetryable } from "./error.js";
 import { handleResponseMessage } from "./handlers.js"
 import fs from 'fs'
@@ -19,7 +19,7 @@ const ENDPOINT = "https://arbsepolia.substreams.pinax.network:443"
 //const SPKG = "https://spkg.io/streamingfast/ethereum-explorer-v0.1.2.spkg"
 const SPKG = "./angpao.spkg"
 const MODULE = "map_events"
-const START_BLOCK = '82565015'
+const START_BLOCK = '82661465'
 //const STOP_BLOCK = '+1'
 const STOP_BLOCK = undefined
 
@@ -29,6 +29,10 @@ const STOP_BLOCK = undefined
     The application MUST handle disconnections and commit the provided cursor to avoid missing information.
 */
 const main = async () => {
+  console.log('reset cursor?', process.env.RESET_CURSOR)
+  if (process.env.RESET_CURSOR) {
+    removeCursor()
+  }
   const pkg = await fetchPackage()
   const registry = createRegistry(pkg);
 

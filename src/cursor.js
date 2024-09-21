@@ -25,3 +25,7 @@ export const writeCursor = async cursor => {
     throw new Error("COULD_NOT_COMMIT_CURSOR")
   }
 }
+
+export const removeCursor = () => {
+    return fs.rmSync(CURSOR_FILE)
+}

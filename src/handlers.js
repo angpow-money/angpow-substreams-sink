@@ -25,8 +25,7 @@ const handleBlockScopedDataMessage = async (response, registry) => {
     // Cursor writing MUST happen after you have successfully processed the message. Otherwise, you risk "skipping" data.
     const outputAsJson = response.output.toJson({ typeRegistry: registry });
 
-    let events = []
-    outputAsJson.mapOutput.angpaoAngpowCreateds?.forEach(o => {
+    const createdAngpaos = outputAsJson.mapOutput.angpaoAngpowCreateds?.map(o => {
 
       const p = {
         tx_hash: '0x' + o.evtTxHash,
@@ -39,12 +38,34 @@ const handleBlockScopedDataMessage = async (response, registry) => {
         token_amount: o.tokenAmount,
         quantity: o.quantity,
       }
-      events.push(p)
+      return p
     })
 
-    if (events.length > 0) {
+    const receivedAngpaos = outputAsJson.mapOutput.angpaoAngpowReceiveds?.map(o => {
+
+
+      const p = {
+        tx_hash: '0x' + o.evtTxHash,
+        log_index: o.evtIndex || 0,
+        block_time: o.evtBlockTime,
+        block_number: o.evtBlockNumber,
+        angpow_id: o.id,
+        token: b64ToHex(o.token),
+        token_amount: o.tokenAmount,
+        index: o.index,
+      }
+      return p
+    })
+
+    if (createdAngpaos?.length > 0) {
       await supabase.from('event_angpow_created')
-        .insert(events)
+        .insert(createdAngpaos)
+        .then(console.log)
+    }
+
+    if (receivedAngpaos?.length > 0) {
+      await supabase.from('event_angpow_received')
+        .insert(receivedAngpaos)
         .then(console.log)
     }
 
