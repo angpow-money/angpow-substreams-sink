@@ -19,7 +19,7 @@ const ENDPOINT = "https://arbsepolia.substreams.pinax.network:443"
 //const SPKG = "https://spkg.io/streamingfast/ethereum-explorer-v0.1.2.spkg"
 const SPKG = "./angpao.spkg"
 const MODULE = "map_events"
-const START_BLOCK = '82661465'
+const START_BLOCK = '82668684'
 //const STOP_BLOCK = '+1'
 const STOP_BLOCK = undefined
 

@@ -51,6 +51,7 @@ const handleBlockScopedDataMessage = async (response, registry) => {
         block_number: o.evtBlockNumber,
         angpow_id: o.id,
         token: b64ToHex(o.token),
+        recipient: b64ToHex(o.recipient),
         token_amount: o.tokenAmount,
         index: o.index,
       }
